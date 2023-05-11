@@ -177,4 +177,21 @@ class DateTimeHelper {
         // Concatenate all days in the week in array
         return array_merge($day_week_past, $day_week_futur);
     }
+    public static function getDaysofmonthBynumber($day){
+        $daym_ = new \DateTime($day);
+        $id_var = getdate(mktime(1, 1, 1, $daym_->format('m'), $daym_->format('d'), $daym_->format('y')));
+        $number_day=$id_var['wday'];
+        $last=date('Y-m-t',strtotime($day));
+        $last_ = new \DateTime($last);
+       $arrays=[];
+        for ($i=$number_day;$i<intval($last_->format('d'));$i++){
+            $make_time=mktime(1, 1, 1, $last_->format('m'), $i, $last_->format('y'));
+           $id_var_ = getdate($make_time);
+            $day_number= $id_var_['wday'];
+            if ($day_number==$number_day){
+                $arrays[]=date('Y-m-d',$make_time);
+            }
+        }
+        return $arrays;
+    }
 }

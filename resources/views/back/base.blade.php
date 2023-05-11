@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{env('APP_NAME')}} | Gestion benevole</title>
+    <title>{{env('APP_NAME')}} | Gestion de salon</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/icons.min.css')}}">
@@ -37,6 +37,8 @@
             ajaxdeleteconge: "{{\Illuminate\Support\Facades\URL::route('delete_conge')}}",
             ajaxdeleteuser: "{{\Illuminate\Support\Facades\URL::route('estheticien.destroy')}}",
             ajaxaddplaning: "{{\Illuminate\Support\Facades\URL::route('planing_add')}}",
+            ajaxremoveplaning: "{{\Illuminate\Support\Facades\URL::route('planing_remove')}}",
+            ajaxaplaning_change: "{{\Illuminate\Support\Facades\URL::route('planing_change')}}",
             getuserbyreservation: "{{\Illuminate\Support\Facades\URL::route('reservation.getuserbyreservation')}}",
         }
     }
@@ -63,7 +65,40 @@
                 }
             });
         })
-
+        $('#delete_planing').click(function () {
+            console.log($('#delete_id').val())
+            $.ajax({
+                url: configs.routes.ajaxremoveplaning,
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    'planing_id':$('#delete_id').val(),
+                },
+                success: function (data) {
+                    window.location.reload(true);
+                },
+                error: function (err) {
+                    alert("An error ocurred while loading data ...");
+                }
+            });
+        })
+        $('#repeat_planing').click(function () {
+            $.ajax({
+                url: configs.routes.ajaxaplaning_change,
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    'planing_id':$('#planingid_').text(),
+                    'date':$('#date_').text(),
+                },
+                success: function (data) {
+                    window.location.reload(true);
+                },
+                error: function (err) {
+                    alert("An error ocurred while loading data ...");
+                }
+            });
+        })
     });
    function getIdPlaning(userid,id){
        $('#date_').text(id)
@@ -92,6 +127,10 @@
             }
         });
     }
+    function clickDeleteReservation(id){
+        $('#delete_id').val(id)
+    }
+
 </script>
 </body>
 

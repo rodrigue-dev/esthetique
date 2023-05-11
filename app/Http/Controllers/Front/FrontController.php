@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 
 
 use App\Helpers\DateTimeHelper;
+use App\Helpers\helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Planing;
 use App\Models\Reservation;
@@ -42,7 +43,7 @@ class FrontController extends Controller
 
             ];
         }
-        $soins=Soin::query()->get();
+        $soins=Soin::query()->inRandomOrder()->limit(3)->get();
         return view('front.home', [
             'soins'=>$soins,
             'allItems'=>$allItems
@@ -55,8 +56,8 @@ class FrontController extends Controller
         ]);
     }
     public function checkout(Request $request){
-        $user=Auth::user();
-        if (!isset($user)){
+        $customer=Auth::user();
+        if (!isset($customer)){
             return redirect()->route('logincustomer');
         }
         $soin=Soin::query()->find( session('soin_id'));
@@ -66,11 +67,17 @@ class FrontController extends Controller
             $reservation->date_reservation=session('date');
             $reservation->heure_reservation=session('start');
             $reservation->soin_id=session('soin_id');
-            $reservation->customer_id=$user->id;
+            $reservation->customer_id=$customer->id;
             $reservation->status=Reservation::PENDING;
             $reservation->user_id=session('user_id');
             $reservation->save();
-            return redirect('/');
+            $data=['reservation'=>$reservation,"subject"=>"Reservation echouée",'message'=>'','user'=>$reservation->user];
+            helpers::send_reservation_active($data);
+            Session::remove("soin_id");
+            Session::remove("start");
+            Session::remove("date");
+            Session::remove("user_id");
+            return redirect()->route('account');
         }
         return view('front.checkout', [
             "soin"=> $soin,

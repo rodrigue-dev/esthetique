@@ -37,10 +37,55 @@ class ReservationController extends Controller
             $agents = new Reservation();
         }
 
-        $agents = $agents->newQuery()->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
+        $agents = $agents->newQuery()->where(['status'=>Reservation::ACCEPTED])->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
         return view('back.reservation.index', compact('agents', 'search'));
     }
+    public function pending(Request $request)
+    {
+        $query_param = [];
+        $search = $request['search'];
+        if ($request->has('search')) {
+            $key = explode(' ', $request['search']);
+            $agents = Reservation::where(function ($q) use ($key) {
+                foreach ($key as $value) {
+                    $q->orWhere('date_reservation', 'like', "%{$value}%")
+                        ->orWhere('heure_reservation', 'like', "%{$value}%")
+                        // ->orWhere('phone', 'like', "%{$value}%")
+                        // ->orWhere('email', 'like', "%{$value}%")
+                    ;
+                }
+            });
+            $query_param = ['search' => $request['search']];
+        } else {
+            $agents = new Reservation();
+        }
 
+        $agents = $agents->newQuery()->where(['status'=>Reservation::PENDING])->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
+        return view('back.reservation.pending', compact('agents', 'search'));
+    }
+    public function reject(Request $request)
+    {
+        $query_param = [];
+        $search = $request['search'];
+        if ($request->has('search')) {
+            $key = explode(' ', $request['search']);
+            $agents = Reservation::where(function ($q) use ($key) {
+                foreach ($key as $value) {
+                    $q->orWhere('date_reservation', 'like', "%{$value}%")
+                        ->orWhere('heure_reservation', 'like', "%{$value}%")
+                        // ->orWhere('phone', 'like', "%{$value}%")
+                        // ->orWhere('email', 'like', "%{$value}%")
+                    ;
+                }
+            });
+            $query_param = ['search' => $request['search']];
+        } else {
+            $agents = new Reservation();
+        }
+
+        $agents = $agents->newQuery()->where(['status'=>Reservation::DENIED])->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
+        return view('back.reservation.reject', compact('agents', 'search'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -76,12 +121,14 @@ class ReservationController extends Controller
             $reservation->update([
                'status'=>Reservation::ACCEPTED
             ]);
+            $data=['reservation'=>$reservation,"subject"=>"Reservation validée",'message'=>'','user'=>$reservation->user];
+            helpers::send_reservation_active($data);
         }else{
             $reservation->update([
                 'status'=>Reservation::DENIED
             ]);
-            $data=['reservation'=>$reservation,"subject"=>"",'message'=>'','user'=>$reservation->user];
-           // helpers::send_reservation_active($data);
+            $data=['reservation'=>$reservation,"subject"=>"Reservation echouée",'message'=>'','user'=>$reservation->user];
+            helpers::send_reservation_active($data);
         }
         return redirect()->route('reservation');
     }

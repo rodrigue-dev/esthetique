@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Helpers\DateTimeHelper;
+use App\Helpers\helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Conge;
 use App\Models\Planing;
@@ -105,7 +106,24 @@ class PlaningController extends Controller
         //
     }
     public function planing_change(Request $request){
-
+        $planing_id = $request->get('planing_id');
+        $planint_int=Planing::query()->find($planing_id);
+        $date_ = $request->get('date');
+        $arr=DateTimeHelper::getDaysofmonthBynumber($date_);
+        for ($i=0;$i<sizeof($arr);$i++){
+            $planing = Planing::query()->where('user_id', '=', $planint_int->user_id)
+                ->where('date_planing', '=', $arr[$i])->first();
+            if (is_null($planing)){
+                $planing = new Planing();
+                $planing->heure_debut = $planint_int->heure_debut;
+                $planing->heure_fin = $planint_int->heure_fin;
+                $planing->user_id = $planint_int->user_id;
+                $planing->date_planing = $arr[$i];
+                $planing->jour = DateTimeHelper::date($arr[$i]);
+                $b_ool = $planing->save();
+            }
+        }
+        return response()->json(['data' => $b_ool, 'status' => true]);
     }
     public function planing_week(Request $request, $id)
     {
@@ -162,6 +180,12 @@ class PlaningController extends Controller
         $planing->date_planing = $date_;
         $planing->jour = DateTimeHelper::date($date_);
         $b_ool = $planing->save();
+        return response()->json(['data' => $b_ool, 'status' => true]);
+    }
+    public function planing_remove(Request $request){
+        $planing_id = $request->get('planing_id');
+        $planing=Planing::query()->find($planing_id);
+        $b_ool =  $planing->delete();
         return response()->json(['data' => $b_ool, 'status' => true]);
     }
 

@@ -13,7 +13,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Reservations accepté</h3>
+                                <h3>Reservations annulée</h3>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
                                 </div>

@@ -100,13 +100,13 @@
                     <div class="collapse" id="sidebarAuth">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="{{route('reservation')}}">Encours</a>
+                                <a href="{{route('reservation_pending')}}">Encours</a>
                             </li>
                             <li>
                                 <a href="{{route('reservation')}}">Accepté</a>
                             </li>
                             <li>
-                                <a href="{{route('reservation')}}">Annulé</a>
+                                <a href="{{route('reservation_reject')}}">Annulé</a>
                             </li>
 
                         </ul>

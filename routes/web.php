@@ -67,6 +67,10 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         ->name('dashboard');
     Route::get('/reservation', [ReservationController::class, 'index'])
         ->name('reservation');
+    Route::get('/reservation/pending', [ReservationController::class, 'pending'])
+        ->name('reservation_pending');
+    Route::get('/reservation/reject', [ReservationController::class, 'reject'])
+        ->name('reservation_reject');
     Route::get('/reservation/edit/{id}', [ReservationController::class, 'edit'])
         ->name('reservation.edit');
     Route::get('/reservation/show/{id}', [ReservationController::class, 'show'])
@@ -83,6 +87,8 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         ->name('planing_week');
     Route::get('/planing_add', [PlaningController::class, 'planing_add'])
         ->name('planing_add');
+    Route::get('/planing_remove', [PlaningController::class, 'planing_remove'])
+        ->name('planing_remove');
     Route::get('/planing_change', [PlaningController::class, 'planing_change'])
         ->name('planing_change');
     Route::group(['prefix' => 'conge', 'as' => 'conge.'],function (){

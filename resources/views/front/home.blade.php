@@ -14,23 +14,24 @@
                             <li data-target="#header-carousel" data-slide-to="2"></li>
                         </ol>
                         <div class="carousel-inner">
-                            <div class="carousel-item position-relative active" style="height: 430px;">
-                                <img class="position-absolute w-100 h-100" src="{{ asset('storage/images/p738348.jpg') }}" style="object-fit: cover;">
-                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                    <div class="p-3" style="max-width: 700px;">
-                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Soins Visage Femme </h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">SOIN VISAGE ANTI-ÂGE ÉCLAT ET RAFFERMISSANT</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Commander</a>
+
+                                <div class="carousel-item position-relative active" style="height: 430px;">
+                                    <img class="position-absolute w-100 h-100" src="{{ asset('storage/images/p738348.jpg') }}" style="object-fit: cover;">
+                                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                        <div class="p-3" style="max-width: 700px;">
+                                            <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{$soins[0]->type->libelle}}</h1>
+                                            <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{$soins[0]->libelle}}</p>
+                                            <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"  href="{{route('cart',['id'=>$soins[0]->id])}}">Commander</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             <div class="carousel-item position-relative" style="height: 430px;">
                                 <img class="position-absolute w-100 h-100" src="{{ asset('storage/images/p58766.jpg') }}" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
-                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Massages</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">MASSAGE CALIFORNIEN AUX HUILES ESSENTIELLES</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Commander</a>
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{$soins[1]->type->libelle}}</h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{$soins[1]->libelle}}</p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{route('cart',['id'=>$soins[1]->id])}}">Commander</a>
                                     </div>
                                 </div>
                             </div>
@@ -38,9 +39,9 @@
                                 <img class="position-absolute w-100 h-100" src="{{ asset('storage/images/p738348.jpg') }}" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
-                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">MASSAGES</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">SOIN VISAGE ÉCLAT AUX AHA</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Commander</a>
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{$soins[2]->type->libelle}}</h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{$soins[2]->libelle}}</p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{route('cart',['id'=>$soins[2]->id])}}">Commander</a>
                                     </div>
                                 </div>
                             </div>
