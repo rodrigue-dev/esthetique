@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Backend\CaisseController;
 use App\Http\Controllers\Backend\CongeController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\EstheticienController;
+use App\Http\Controllers\Backend\FactureController;
 use App\Http\Controllers\Backend\PlaningController;
+use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\ProductTypeController;
 use App\Http\Controllers\Backend\ReservationController;
 use App\Http\Controllers\Backend\SoinController;
 use App\Http\Controllers\Backend\TypeSoinController;
@@ -129,6 +133,66 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::post('/store', [EstheticienController::class, 'store'])
             ->name('store');
         Route::delete('/destroy', [EstheticienController::class, 'destroy'])
+            ->name('destroy');
+
+    });
+    Route::group(['prefix' => 'facturation', 'as' => 'facturation.'],function (){
+        Route::match(array('GET', 'POST'), 'create', [FactureController::class, 'create'])
+            ->name('create');
+        Route::get('/edit/{id}', [FactureController::class, 'edit'])
+            ->name('edit');
+        Route::post('/update/{id}', [FactureController::class, 'update'])
+            ->name('update');
+        Route::get('/list', [FactureController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [FactureController::class, 'store'])
+            ->name('store');
+        Route::delete('/destroy', [FactureController::class, 'destroy'])
+            ->name('destroy');
+
+    });
+    Route::group(['prefix' => 'product_type', 'as' => 'product_type.'],function (){
+        Route::match(array('GET', 'POST'), 'create', [ProductTypeController::class, 'create'])
+            ->name('create');
+        Route::get('/edit/{id}', [ProductTypeController::class, 'edit'])
+            ->name('edit');
+        Route::post('/update/{id}', [ProductTypeController::class, 'update'])
+            ->name('update');
+        Route::get('/list', [ProductTypeController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [ProductTypeController::class, 'store'])
+            ->name('store');
+        Route::delete('/destroy', [ProductTypeController::class, 'destroy'])
+            ->name('destroy');
+
+    });
+    Route::group(['prefix' => 'product', 'as' => 'product.'],function (){
+        Route::match(array('GET', 'POST'), 'create', [ProductController::class, 'create'])
+            ->name('create');
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])
+            ->name('edit');
+        Route::post('/update/{id}', [ProductController::class, 'update'])
+            ->name('update');
+        Route::get('/list', [ProductController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [ProductController::class, 'store'])
+            ->name('store');
+        Route::delete('/destroy', [ProductController::class, 'destroy'])
+            ->name('destroy');
+
+    });
+    Route::group(['prefix' => 'caisse', 'as' => 'caisse.'],function (){
+        Route::match(array('GET', 'POST'), 'create', [CaisseController::class, 'create'])
+            ->name('create');
+        Route::get('/edit/{id}', [CaisseController::class, 'edit'])
+            ->name('edit');
+        Route::post('/update/{id}', [CaisseController::class, 'update'])
+            ->name('update');
+        Route::get('/list', [CaisseController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [CaisseController::class, 'store'])
+            ->name('store');
+        Route::delete('/destroy', [CaisseController::class, 'destroy'])
             ->name('destroy');
 
     });

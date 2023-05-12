@@ -21,6 +21,9 @@ return new class extends Migration
             $table->double('montantttc');
             $table->double('reduction');
             $table->double('adresse');
+            $table->foreignId('customer_id');
+            $table->foreignId('user_id');
+            $table->foreignId('soin_id');
         });
     }
 

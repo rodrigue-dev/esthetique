@@ -55,14 +55,29 @@
                     </a>
                 </li>
                 @endif
+                @if(auth()->user()->user_type==3 || auth()->user()->user_type==0)
+                <li class="menu-title mt-2">Caisse</li>
+                    <li>
+                        <a href="{{route('facturation.index')}}">
+                            <i class="mdi mdi-account-box-multiple"></i>
+                            <span> Facturation </span>
+                        </a>
+                    </li>
+                @endif
                 @if(auth()->user()->user_type==0)
                 <li class="menu-title mt-2">Apps</li>
                 <li>
                     <a href="{{route('estheticien.index')}}">
-                        <i class="mdi mdi-account-cash"></i>
-                        <span> Specialistes </span>
+                        <i class="mdi mdi-account-box-multiple"></i>
+                        <span> Estheticien(e) </span>
                     </a>
                 </li>
+                    <li>
+                        <a href="{{route('caisse.index')}}">
+                            <i class="mdi mdi-account-cash"></i>
+                            <span> Caissier(e) </span>
+                        </a>
+                    </li>
                 <li>
                     <a href="{{route('customer.index')}}">
                         <i class="mdi mdi-account-group"></i>
@@ -88,7 +103,26 @@
                         <span> Conges </span>
                     </a>
                 </li>
-
+                    <li class="menu-title mt-2">Product</li>
+                    <li>
+                    <li>
+                        <a href="{{route('product_type.index')}}">
+                            <i class="mdi mdi-apps-box"></i>
+                            <span> Categorie de produit </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{route('product.index')}}">
+                            <i class="mdi mdi-box"></i>
+                            <span> Produit </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="mdi mdi-account-group-outline"></i>
+                            <span> Fournisseur </span>
+                        </a>
+                    </li>
                 <li class="menu-title mt-2">Operation</li>
 
                 <li>

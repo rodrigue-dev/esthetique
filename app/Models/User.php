@@ -13,6 +13,7 @@ class User extends Authenticatable
     const ADMIN_TYPE = 0;
     const AGENT_TYPE = 1;
     const CUSTOMER_TYPE = 2;
+    const CAISSE_TYPE = 3;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -26,8 +27,6 @@ class User extends Authenticatable
         'lastname',
         'phone',
         'adresse',
-        'adressepostal',
-        'commune',
         'email',
         'user_type',
         'photo',
@@ -65,6 +64,10 @@ class User extends Authenticatable
     public function scopeCustomer($query)
     {
         return $query->where('user_type', '=', 2);
+    }
+    public function scopeCaisse($query)
+    {
+        return $query->where('user_type', '=', 3);
     }
 
 
