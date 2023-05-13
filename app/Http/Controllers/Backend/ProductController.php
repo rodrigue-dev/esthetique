@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Helpers\helpers;
 use App\Http\Controllers\Controller;
+use App\Models\Fournisseur;
 use App\Models\Product;
+use App\Models\Product_type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +36,9 @@ class ProductController extends Controller
         }
 
         $agents = $agents->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
-        return view('back.product.index', compact('agents', 'search'));
+        $fournisseurs=Fournisseur::all();
+        $categories=Product_type::all();
+        return view('back.product.index', compact('agents', 'search','categories','fournisseurs'));
     }
 
     /**
@@ -51,20 +55,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'f_name' => 'required',
-            'l_name' => 'required',
+            'libelle' => 'required',
             //'image' => 'required',
-            'email' => 'required|unique:users|min:4|max:20',
-            'phone' => 'required|unique:users|min:8|max:20',
-            'adresse' => 'required',
-            'password' => 'required|min:4|max:14',
-        ],[
-            'password.min' => 'Password must contain 4 characters',
-            'password.max' => 'Password must contain 4 characters',
+            'price_sell' => 'required',
+            'price' => 'required',
+            'quantite' => 'required',
+            'product_type_id' => 'required',
         ]);
 
         $email = $request->email;
-        $agent = Product::where(['email' => $email])->first();
+        $agent = Product::where(['libelle' => $email])->first();
         if (isset($agent)){
             //  Toastr::warning(translate('This phone number is already taken'));
             return back();
@@ -72,16 +72,14 @@ class ProductController extends Controller
 
         DB::transaction(function () use ($request, $email) {
             $user = new Product();
-            $user->name = $request->f_name;
-            $user->lastname = $request->l_name;
-            //$user->image = Helpers::upload('agent/', 'png', $request->file('image'));
-            $user->email = $request->email;
-            $user->adresse = $request->adresse;
-            $user->phone = $request->phone;;
-            $user->role = 'ROLE_CAISSE';
-            //   $user->occupation = $request->occupation;
-            $user->password = bcrypt($request->password);
-            $user->user_type = 3;    //['Admin'=>0, 'Agent'=>1, 'Customer'=>2, 'Caisse'=>3]
+            $user->libelle = $request->libelle;
+            $user->quantite = $request->quantite;
+            $user->image = Helpers::upload('product/', 'png', $request->file('image'));
+            $user->description = $request->description;
+            $user->price_sell = $request->price_sell;
+            $user->price = $request->price;
+            $user->product_type_id = $request->product_type_id;
+            $user->fournisseur_id = isset($request->fournisseur_id)?$request->fournisseur_id:null;
             $user->save();
         });
 
@@ -102,8 +100,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $user = Product::find($id);
-        return view('back.caisse.update', compact('user'));
+        $product = Product::find($id);
+        $fournisseurs=Fournisseur::all();
+        $categories=Product_type::all();
+        return view('back.product.update', compact('product','fournisseurs','categories'));
     }
 
     /**
@@ -113,22 +113,24 @@ class ProductController extends Controller
     {
         $conge = Product::find($id);
         $conge->update([
-            'lastname' => $request->lastname,
-            'name' => $request->name,
-            'email' => $request->email,
-            'adresse' => $request->adresse,
-            'phone' => $request->phone,
+            'libelle' => $request->libelle,
+            'description' => $request->description,
+            'quantite' => $request->quantite,
+            'image' => is_null($request->file('image'))?$conge->image:Helpers::upload('product/', 'png', $request->file('image')),
+        'price_sell' => $request->price_sell,
+            'price' => $request->price,
         ]);
-        return redirect()->route('caisse.index');
+        return redirect()->route('product.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id=$request->get('item');
         $conge = Product::query()->find($id);
         $conge->delete();
-        return redirect()->route('product.index');
+        return response()->json(['data' => $conge, 'status' => true]);
     }
 }

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('libelle');
             $table->string('image');
             $table->string('description');
-            $table->integer('min_qte');
-            $table->integer('max_qte');
+            $table->integer('quantite');
+            $table->double('price_sell');
             $table->double('price');
             $table->foreignId('product_type_id');
             $table->foreignId('fournisseur_id');

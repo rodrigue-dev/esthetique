@@ -124,10 +124,11 @@ class EstheticienController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id=$request->get('item');
         $conge = User::query()->find($id);
         $conge->delete();
-        return redirect()->route('estheticien.index');
+        return response()->json(['data' => $conge, 'status' => true]);
     }
 }

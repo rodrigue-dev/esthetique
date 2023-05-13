@@ -118,7 +118,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{route('fournisseur.index')}}">
                             <i class="mdi mdi-account-group-outline"></i>
                             <span> Fournisseur </span>
                         </a>

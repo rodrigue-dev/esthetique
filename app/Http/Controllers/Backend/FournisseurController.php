@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use App\Helpers\helpers;
 use App\Http\Controllers\Controller;
-use App\Models\Product_type;
-use App\Models\User;
+use App\Models\Fournisseur;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ProductTypeController extends Controller
+class FournisseurController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,18 +20,18 @@ class ProductTypeController extends Controller
         $search = $request['search'];
         if ($request->has('search')) {
             $key = explode(' ', $request['search']);
-            $agents = Product_type::where(function ($q) use ($key) {
+            $agents = Fournisseur::where(function ($q) use ($key) {
                 foreach ($key as $value) {
                     $q->orWhere('libelle', 'like', "%{$value}%");
                 }
             });
             $query_param = ['search' => $request['search']];
         } else {
-            $agents = new Product_type();
+            $agents = new Fournisseur();
         }
 
         $agents = $agents->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
-        return view('back.product_type.index', compact('agents', 'search'));
+        return view('back.fournisseur.index', compact('agents', 'search'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductTypeController extends Controller
      */
     public function create()
     {
-        return view('back.product_type.create', []);
+        //
     }
 
     /**
@@ -48,19 +48,21 @@ class ProductTypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'libelle' => 'required',
+            'name' => 'required',
         ]);
 
-        $libelle = $request->libelle;
-        $agent = Product_type::where(['libelle' => $libelle])->first();
+        $name = $request->libelle;
+        $agent = Fournisseur::where(['name' => $name])->first();
         if (isset($agent)){
             //  Toastr::warning(translate('This phone number is already taken'));
             return back();
         }
 
-        DB::transaction(function () use ($request, $libelle) {
-            $user = new Product_type();
-            $user->libelle = $request->libelle;
+        DB::transaction(function () use ($request, $name) {
+            $user = new Fournisseur();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
             $user->save();
         });
 
@@ -71,7 +73,7 @@ class ProductTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product_type $user)
+    public function show(Fournisseur $fournisseur)
     {
         //
     }
@@ -81,8 +83,8 @@ class ProductTypeController extends Controller
      */
     public function edit($id)
     {
-        $product_type = Product_type::find($id);
-        return view('back.product_type.update', compact('product_type'));
+        $user = Fournisseur::find($id);
+        return view('back.fournisseur.update', compact('user'));
     }
 
     /**
@@ -90,20 +92,23 @@ class ProductTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $conge = Product_type::find($id);
+        $conge = Fournisseur::find($id);
         $conge->update([
-            'libelle' => $request->libelle,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
         ]);
-        return redirect()->route('product_type.index');
+        return redirect()->route('fournisseur.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+
+        public function destroy(Request $request)
     {
         $id=$request->get('item');
-        $conge = Product_type::query()->find($id);
+        $conge = Fournisseur::query()->find($id);
         $conge->delete();
         return response()->json(['data' => $conge, 'status' => true]);
     }

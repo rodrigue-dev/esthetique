@@ -1,12 +1,32 @@
 function getItem(id){
-    $('#periode_id').text(id);
+    $('#item_id').text(id);
 }
 function getReportDay(id){
     $('#reportday_id').text(id);
     console.log(id)
 }
 $(function () {
-
+    $('#delete_btn_categorie').click(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+        $.ajax({
+            url: configs.routes.ajaxdeletecategorie,
+            type: "DELETE",
+            dataType: "JSON",
+            data: {
+                'item':$('#item_id').text()
+            },
+            success: function (data) {
+                window.location.reload(true);
+            },
+            error: function (err) {
+                alert("An error ocurred while loading data ...");
+            }
+        });
+    })
 $('#delete_btn').click(function () {
     $.ajax({
         url: configs.routes.ajaxdeleteperiode,

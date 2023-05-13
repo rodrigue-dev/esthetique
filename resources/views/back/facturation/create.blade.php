@@ -16,15 +16,19 @@
                                     <div class="row mt-1">
                                         <div class=" col-md-6">
                                             <label for="name" class="form-label">Client</label>
+                                            <div class="input-group">
                                             <select name="customer_id" id="inputState" class="form-select">
                                                 <option>Choisir le client</option>
                                                 @foreach($customers as $item)
                                                     <option value="{{$item->id}}">{{$item->name}} {{$item->lastname}}</option>
                                                 @endforeach
-                                            </select></div>
+                                            </select>
+                                                <a href="{{route('facturation.customer')}}" class="btn input-group-text btn-dark waves-effect waves-light" type="button">Ajouter client</a>
+                                            </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <label for="name" class="form-label">Estheticiene</label>
-                                            <select name="soin_type_id" id="inputState" class="form-select">
+                                            <select name="user_id" id="inputState" class="form-select">
                                                 <option>Choisir l'estheticiene</option>
                                                 @foreach($estheticiens as $item)
                                                     <option value="{{$item->id}}">{{$item->name}} {{$item->lastname}}</option>
@@ -34,10 +38,10 @@
                                     <div class="row mt-1">
                                         <div class="col-md-12">
                                             <label for="name" class="form-label">Soin</label>
-                                            <select name="soin_type_id" id="inputState" class="form-select">
+                                            <select name="soin_id" id="inputSoin" class="form-select">
                                                 <option>Choisir le soin</option>
                                                 @foreach($soins as $item)
-                                                    <option value="{{$item->id}}">{{$item->libelle}}</option>
+                                                    <option data-duree="{{$item->duree}}" data-price="{{$item->price}}" value="{{$item->id}}">{{$item->libelle}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -45,11 +49,11 @@
                                     <div class="row mt-1">
                                         <div class="col-md-6">
                                             <label for="name" class="form-label">Prix</label>
-                                            <input class="form-control"  name="name" type="text" id="price" required="" placeholder="">
+                                            <input class="form-control"  name="name" type="text" id="price" disabled placeholder="">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="name" class="form-label">Duree</label>
-                                            <input class="form-control"  name="name" type="text" id="name" required="" placeholder="">
+                                            <input class="form-control"  name="name" type="text" id="duree" disabled placeholder="">
                                         </div>
                                     </div>
                                     <div class=" p-3 mb-3 d-grid text-center">

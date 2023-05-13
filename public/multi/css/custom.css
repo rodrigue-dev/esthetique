@@ -1,4 +1,66 @@
+a {
+    color: #de7cb8;
+    text-decoration: none;
+    background-color: transparent;
+}
 
+a:hover {
+    color: #de7cb8;
+    text-decoration: underline;
+}
+.btn-primary {
+    color: #212529;
+    background-color: #de7cb8;
+    border-color: #de7cb8;
+}
+
+.btn-primary:hover {
+    color: #212529;
+    background-color: #de7cb8;
+    border-color: #de7cb8;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: #de7cb8;
+}
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #de7cb8;
+}
+.cat-item:hover {
+    background: #de7cb8;
+}
+.text-primary {
+    color: #de7cb8 !important;
+}
+
+a.text-primary:hover, a.text-primary:focus {
+    color: #de7cb8 !important;
+}
+.bg-primary {
+    background-color: #de7cb8 !important;
+}
+
+a.bg-primary:hover, a.bg-primary:focus,
+button.bg-primary:hover,
+button.bg-primary:focus {
+    background-color: #de7cb8 !important;
+}
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #de7cb8;
+    border-color: #de7cb8;
+}
+.badge-primary {
+    color: #212529;
+    background-color: #de7cb8;
+}
+
+a.badge-primary:hover, a.badge-primary:focus {
+    color: #212529;
+    background-color: #de7cb8;
+}
 /************************/
 .buttons-container {
     display: -webkit-box;
@@ -82,7 +144,7 @@
 /* weekend */
 .week:not(.start-on-monday) .day:first-child,
 .week:not(.start-on-monday) .day:last-child {
-    color: orange;
+    color: #de7cb8;
 }
 
 /* sunday */
@@ -93,7 +155,7 @@
 /* start on monday - weekend */
 .week.start-on-monday .day:nth-child(6),
 .week.start-on-monday .day:last-child {
-    color: orange;
+    color: #de7cb8;
 }
 
 /* start on monday - sunday */
@@ -107,7 +169,7 @@
     bottom: 7px;
     left: 50%;
     transform: translateX(-50%);
-    border-bottom: 2px solid orange;
+    border-bottom: 2px solid #de7cb8;
     width: 10px;
     height: 1px;
 }

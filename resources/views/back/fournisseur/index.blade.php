@@ -13,10 +13,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Produits</h3>
+                                <h3>Fournisseurs</h3>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bs-example-modal-sm"><i class="mdi mdi-plus-circle"></i>Ajouter un produit
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bs-example-modal-sm"><i class="mdi mdi-plus-circle"></i>Ajouter un fournisseur
                                         </button>
 
                                     </div>
@@ -30,12 +30,9 @@
                                         <thead class="thead-light">
                                         <tr>
                                             <th>#N°</th>
-                                           <th style="width: 15%">image</th>
-                                            <th style="width: 30%">Categorie</th>
-                                            <th>libelle</th>
-                                            <th>Quantite</th>
-                                            <th>Prix</th>
-                                            <th>Prix de vente</th>
+                                            <th style="width: 30%">name</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -44,34 +41,18 @@
                                         @foreach($agents as $key=>$agent)
                                             <tr>
                                                 <td>{{$agents->firstitem()+$key}}</td>
-                                               <td>
-                                                    <img class="rounded-circle" height="60px" width="60px" style="cursor: pointer"
-                                                         onclick="location.href='{{route('product.edit',[$agent['id']])}}'"
 
-                                                         src="{{asset('storage/product')}}/{{$agent['image']}}">
+                                                <td>
+                                                    <a href="{{route('fournisseur.edit',[$agent['id']])}}" class="d-block font-size-sm text-body">
+                                                        {{$agent['name'].' '.$agent['lastname']}}
+                                                    </a>
                                                 </td>
                                                 <td>
-                                                    @if($agent['categorie'])
-                                                    {{$agent['categorie']->libelle}}
-                                                    @else
-                                                        {{$agent['categorie']}}
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    {{$agent['libelle']}}
-                                                </td>
-                                                <td>
-                                                    {{$agent['quantite']}}
-                                                </td>
-                                                <td>
-                                                    {{$agent['price']}} <i class="mdi mdi-currency-eur"></i>
-                                                </td>
-                                                <td>
-                                                    {{$agent['price_sell']}} <i class="mdi mdi-currency-eur"></i>
+                                                    {{$agent['phone']}}
                                                 </td>
                                                 <td>
                                                     <a class="btn-sm btn-secondary p-1 pr-2 m-1"
-                                                       href="{{route('product.edit',[$agent['id']])}}">
+                                                       href="{{route('fournisseur.edit',[$agent['id']])}}">
                                                         <i class="mdi mdi-pencil pl-1" aria-hidden="true"></i>
                                                     </a>
                                                     <a class="btn-sm btn-danger p-1 pr-2 m-1"
@@ -112,56 +93,24 @@
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="mySmallModalLabel">Ajouter un produit</h4>
+                    <h4 class="modal-title" id="mySmallModalLabel">Ajouter un fournisseur</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{route('product.store')}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('fournisseur.store')}}">
                         {{csrf_field()}}
                         <div class="row">
-                            <div class="mb-3 col-md-12">
-                                <label for="name" class="form-label">Libelle</label>
-                                <input class="form-control" name="libelle" type="text" id="name" required="" placeholder="Enter your name">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nom</label>
+                                <input class="form-control" name="name" type="text" id="name" required="" placeholder="Enter your name">
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Prix</label>
-                                <input class="form-control" min="0" name="price" type="text" id="name" required="" placeholder="Enter your name">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Email</label>
+                                <input class="form-control" name="email" type="email" id="name" required="" placeholder="Enter your name">
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Prix de vente</label>
-                                <input class="form-control" min="0" name="price_sell" type="text" id="name" required="" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-3 col-md-12">
-                                <label for="name" class="form-label">Quantite</label>
-                                <input class="form-control" min="0" name="quantite" type="number" id="name" required="" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Categorie</label>
-                                <select name="product_type_id" id="inputState" class="form-select">
-                                    <option value=""  selected disabled>Choisir la categorie</option>
-                                    @foreach($categories as $item)
-                                        <option value="{{$item->id}}">{{$item->libelle}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Fournisseur</label>
-                                <select name="fournisseur_id" id="inputState" class="form-select">
-                                    <option>Choisir le fournisseur</option>
-                                    @foreach($fournisseurs as $item)
-                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                    @endforeach
-                                </select> </div>
-                            <div class="mb-3 col-md-12">
-                                <label for="name" class="form-label">Image</label>
-
-                                <input class="form-control"
-                                       accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" name="image" type="file" id="name" required="" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-3 col-md-12">
-                                <label for="name" class="form-label">Description</label>
-                                <textarea class="form-control" name="description" type="text" id="name" required="" placeholder="Enter your name">
-                                </textarea>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Téléphone</label>
+                                <input class="form-control" name="phone" type="text" id="name" required="" placeholder="Enter your name">
                             </div>
                         </div>
                         <div class="mb-3 d-grid text-center">
@@ -176,7 +125,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="mySmallModalLabel">Supprimer le product</h4>
+                    <h4 class="modal-title" id="mySmallModalLabel">Supprimer le personnel</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

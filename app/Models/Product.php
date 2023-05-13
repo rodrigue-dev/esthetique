@@ -12,13 +12,13 @@ class Product extends Model
         'libelle',
         'image',
         'description',
-        'min_qte',
-        'max_qte',
+        'quantite',
+        'price_sell',
         'price',
         'product_type_id',
         'fournisseur_id',
     ];
     public function categorie() {
-        return $this->belongsTo(Soin_type::class, 'product_type_id', 'id');
+        return $this->belongsTo(Product_type::class, 'product_type_id', 'id');
     }
 }

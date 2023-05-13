@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\EstheticienController;
 use App\Http\Controllers\Backend\FactureController;
+use App\Http\Controllers\Backend\FournisseurController;
 use App\Http\Controllers\Backend\PlaningController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductTypeController;
@@ -119,6 +120,8 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
             ->name('index');
         Route::post('/store', [CustomerController::class, 'store'])
             ->name('store');
+        Route::delete('/destroy', [CustomerController::class, 'destroy'])
+            ->name('destroy');
 
     });
     Route::group(['prefix' => 'estheticien', 'as' => 'estheticien.'],function (){
@@ -145,6 +148,8 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
             ->name('update');
         Route::get('/list', [FactureController::class, 'index'])
             ->name('index');
+        Route::match(array('GET', 'POST'), '/customer', [FactureController::class, 'customer'])
+            ->name('customer');
         Route::post('/store', [FactureController::class, 'store'])
             ->name('store');
         Route::delete('/destroy', [FactureController::class, 'destroy'])
@@ -163,6 +168,21 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
         Route::post('/store', [ProductTypeController::class, 'store'])
             ->name('store');
         Route::delete('/destroy', [ProductTypeController::class, 'destroy'])
+            ->name('destroy');
+
+    });
+    Route::group(['prefix' => 'fournisseur', 'as' => 'fournisseur.'],function (){
+        Route::match(array('GET', 'POST'), 'create', [FournisseurController::class, 'create'])
+            ->name('create');
+        Route::get('/edit/{id}', [FournisseurController::class, 'edit'])
+            ->name('edit');
+        Route::post('/update/{id}', [FournisseurController::class, 'update'])
+            ->name('update');
+        Route::get('/list', [FournisseurController::class, 'index'])
+            ->name('index');
+        Route::post('/store', [FournisseurController::class, 'store'])
+            ->name('store');
+        Route::delete('/destroy', [FournisseurController::class, 'destroy'])
             ->name('destroy');
 
     });
@@ -207,6 +227,8 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
             ->name('update');
         Route::post('/store', [SoinController::class, 'store'])
             ->name('store');
+        Route::delete('/destroy', [SoinController::class, 'destroy'])
+            ->name('destroy');
     });
     Route::group(['prefix' => 'typesoin', 'as' => 'typesoin.'],function (){
         Route::match(array('GET', 'POST'), 'create', [TypeSoinController::class, 'create'])
@@ -219,6 +241,8 @@ Route::group(['middleware' => ['auth','isAdmin']], function () {
             ->name('update');
         Route::post('/store', [TypeSoinController::class, 'store'])
             ->name('store');
+        Route::delete('/destroy', [TypeSoinController::class, 'destroy'])
+            ->name('destroy');
     });
     Route::group(['prefix' => 'planing', 'as' => 'planing.'],function (){
         Route::match(array('GET', 'POST'), 'create', [SoinController::class, 'create'])

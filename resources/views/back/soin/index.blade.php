@@ -113,7 +113,7 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="name" class="form-label">Prix</label>
-                                <input class="form-control" name="price" type="number" id="name" required="" placeholder="Enter price">
+                                <input min="0" class="form-control" name="price" type="number" id="name" required="" placeholder="Enter price">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="name" class="form-label">Duree</label>

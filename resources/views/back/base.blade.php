@@ -36,6 +36,12 @@
             sendmail: "{{\Illuminate\Support\Facades\URL::route('sendmail')}}",
             ajaxdeleteconge: "{{\Illuminate\Support\Facades\URL::route('delete_conge')}}",
             ajaxdeleteuser: "{{\Illuminate\Support\Facades\URL::route('estheticien.destroy')}}",
+            ajaxdeletecustomer: "{{\Illuminate\Support\Facades\URL::route('customer.destroy')}}",
+            ajaxdeleteproduct: "{{\Illuminate\Support\Facades\URL::route('product.destroy')}}",
+            ajaxdeletecategorie: "{{\Illuminate\Support\Facades\URL::route('product_type.destroy')}}",
+            ajaxdeletetypesoin: "{{\Illuminate\Support\Facades\URL::route('typesoin.destroy')}}",
+            ajaxdeletesoin: "{{\Illuminate\Support\Facades\URL::route('soin.destroy')}}",
+            ajaxdeletefacturation: "{{\Illuminate\Support\Facades\URL::route('facturation.destroy')}}",
             ajaxaddplaning: "{{\Illuminate\Support\Facades\URL::route('planing_add')}}",
             ajaxremoveplaning: "{{\Illuminate\Support\Facades\URL::route('planing_remove')}}",
             ajaxaplaning_change: "{{\Illuminate\Support\Facades\URL::route('planing_change')}}",
@@ -46,6 +52,12 @@
 <script src="{{asset('js/script.js') }}"></script>
 <script type="text/javascript">
     $(function () {
+        $('#duree').val($("#inputSoin option:selected").data('duree'))
+        $('#price').val($("#inputSoin option:selected").data('price'))
+        $('#inputSoin').change(function () {
+            $('#duree').val($("#inputSoin option:selected").data('duree'))
+            $('#price').val($("#inputSoin option:selected").data('price'))
+        })
         $('#save_planing').click(function () {
             $.ajax({
                 url: configs.routes.ajaxaddplaning,

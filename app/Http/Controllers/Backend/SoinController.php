@@ -104,8 +104,11 @@ class SoinController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Soin $soin)
+    public function destroy(Request $request)
     {
-        //
+        $id=$request->get('item');
+        $conge = Soin::query()->find($id);
+        $conge->delete();
+        return response()->json(['data' => $conge, 'status' => true]);
     }
 }

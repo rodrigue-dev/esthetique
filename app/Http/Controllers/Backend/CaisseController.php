@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Helpers\helpers;
 use App\Http\Controllers\Controller;
+use App\Models\Conge;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -124,10 +125,13 @@ class CaisseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+
+        public function destroy(Request $request)
     {
-        $conge = User::query()->find($id);
+        $id=$request->get('item');
+        $conge = Conge::query()->find($id);
         $conge->delete();
-        return redirect()->route('caisse.index');
+        return response()->json(['data' => $conge, 'status' => true]);
+
     }
 }

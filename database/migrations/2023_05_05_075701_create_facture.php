@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('numero');
             $table->date('date_facture');
             $table->double('montantht');
-            $table->double('tva');
-            $table->double('montantttc');
-            $table->double('reduction');
-            $table->double('adresse');
+            $table->double('tva')->nullable();
+            $table->double('montantttc')->nullable();
+            $table->double('reduction')->nullable();
+            $table->text('adresse')->nullable();
             $table->foreignId('customer_id');
             $table->foreignId('user_id');
             $table->foreignId('soin_id');

@@ -30,11 +30,10 @@
                                         <thead class="thead-light">
                                         <tr>
                                             <th>#N°</th>
-                                           {{-- <th style="width: 15%">image</th>--}}
-                                            <th style="width: 30%">name</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Adresse</th>
+                                            <th style="width: 30%">Client</th>
+                                            <th>Estheticiene</th>
+                                            <th>Soin</th>
+                                            <th>Prix</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -43,33 +42,21 @@
                                         @foreach($agents as $key=>$agent)
                                             <tr>
                                                 <td>{{$agents->firstitem()+$key}}</td>
-                                          {{--      <td>
-                                                    <img class="rounded-circle" height="60px" width="60px" style="cursor: pointer"
-                                                         onclick="location.href='{{route('estheticien.edit',[$agent['id']])}}'"
-
-                                                         src="{{asset('storage/app/public/agent')}}/{{$agent['image']}}">
-                                                </td>--}}
                                                 <td>
-                                                    <a href="{{route('estheticien.edit',[$agent['id']])}}" class="d-block font-size-sm text-body">
-                                                        {{$agent['name'].' '.$agent['lastname']}}
-                                                    </a>
+                                                    {{$agent['customer']->name}}
                                                 </td>
                                                 <td>
-                                                    {{$agent['phone']}}
+                                                    {{$agent['user']->name}}
                                                 </td>
                                                 <td>
-                                                    @if(isset($agent['email']))
-                                                        <a href="mailto:{{ $agent['email'] }}" class="text-primary">{{ $agent['email'] }}</a>
-                                                    @else
-                                                        <span class="badge-pill badge-soft-dark text-muted">Email unavailable</span>
-                                                    @endif
+                                                    {{$agent['soin']->libelle}}
                                                 </td>
                                                 <td>
-                                                    {{$agent['adresse']}}
+                                                    {{$agent['montantht']}}
                                                 </td>
                                                 <td>
                                                     <a class="btn-sm btn-secondary p-1 pr-2 m-1"
-                                                       href="{{route('estheticien.edit',[$agent['id']])}}">
+                                                       href="{{route('facturation.edit',[$agent['id']])}}">
                                                         <i class="mdi mdi-pencil pl-1" aria-hidden="true"></i>
                                                     </a>
                                                     <a class="btn-sm btn-danger p-1 pr-2 m-1"
@@ -106,55 +93,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="mySmallModalLabel">Ajouter une facture</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{route('estheticien.store')}}">
-                        {{csrf_field()}}
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Nom</label>
-                                <input class="form-control" name="f_name" type="text" id="name" required="" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Prenom</label>
-                                <input class="form-control" name="l_name" type="text" id="name" required="" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Email</label>
-                                <input class="form-control" name="email" type="email" id="name" required="" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Téléphone</label>
-                                <input class="form-control" name="phone" type="text" id="name" required="" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Adresse</label>
-                                <input class="form-control" name="adresse" type="text" id="name" required="" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">password</label>
-                                <input class="form-control" name="password" type="password" id="name" required="" placeholder="Enter your name">
-                            </div>
-                        </div>
-                        <div class="mb-3 d-grid text-center">
-                            <button class="btn btn-success" type="submit"> Enregistrer </button>
-                        </div>
-                    </form>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <div class="modal fade" id="bs-delete-modal-sm" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal fade" id="bs-delete-modal-sm" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="mySmallModalLabel">Supprimer le personnel</h4>
+                    <h4 class="modal-title" id="mySmallModalLabel">Supprimer la facture</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -163,7 +106,7 @@
                         {{csrf_field()}}
 
                         <div class="mb-3 d-grid text-center">
-                            <button class="btn btn-danger" type="button" id="delete_btn_user"> Supprimer </button>
+                            <button class="btn btn-danger" type="button" id="delete_btn_facture"> Supprimer </button>
                         </div>
                     </form>
                 </div>

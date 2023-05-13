@@ -9,33 +9,16 @@
                 <div class="row mt-3">
 
                 </div>
-                <div class="row mt-3">
-                    <div class="col-12">
+                <div class="row mt-3 justify-content-between">
+                    <div class="col-8">
                         <div class="card">
-                            <form method="POST" action="{{route('caisse.update',['id'=>$user->id])}}">
+                            <form method="POST" action="{{route('product_type.update',['id'=>$product_type->id])}}">
                                 {{csrf_field()}}
                                 <div class="row p-3">
-                                    <div class="mb-3 col-md-6">
-                                        <label for="name" class="form-label">Nom</label>
-                                        <input class="form-control" value="{{$user->name}}" name="name" type="text" id="name" required="" placeholder="Enter your name">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Libelle</label>
+                                        <input class="form-control" value="{{$product_type->libelle}}" name="libelle" type="text" id="name" required="" placeholder="Enter your name">
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="name" class="form-label">Prenom</label>
-                                        <input class="form-control" value="{{$user->lastname}}" name="lastname" type="text" id="name" required="" placeholder="Enter your name">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="name" class="form-label">Email</label>
-                                        <input class="form-control" value="{{$user->email}}" name="email" type="email" id="name" required="" placeholder="Enter your name">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="name" class="form-label">Téléphone</label>
-                                        <input class="form-control" value="{{$user->phone}}" name="phone" type="text" id="name" required="" placeholder="Enter your name">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="name" class="form-label">Adresse</label>
-                                        <input class="form-control" value="{{$user->adresse}}" name="adresse" type="text" id="name" required="" placeholder="Enter your name">
-                                    </div>
-
                                 </div>
                                 <div class="mb-3 d-grid text-center">
                                     <button class="btn btn-success" type="submit"> Modifier </button>
