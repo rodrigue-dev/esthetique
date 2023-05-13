@@ -18,12 +18,12 @@
         <div class="row px-xl-5">
 
                 <div class="col-md-6 mt-lg-5 p-lg-5">
-                    <img src="{{asset('storage/images/p58766.jpg')}}" alt="image" height="350" class="mx-auto">
+                    <img src="{{asset('multi/img/p58766.jpg')}}" alt="image" height="350" class="mx-auto">
                 </div>
                 <div class="col-md-6">
-                    <div class="text-center">
+                    <div class="text-center mb-1">
                         <a href="/">
-                            <img src="{{asset('storage/images/logo.png')}}" alt="" height="100" class="mx-auto">
+                         <img src="{{asset('logo.jpeg')}}" alt="" height="100" class="mx-auto">
                         </a>
                               </div>
                     @include("back._partials.errors-and-messages")

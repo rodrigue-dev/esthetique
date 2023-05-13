@@ -20,7 +20,7 @@
                 <div class="col-md-8">
                     <div class="text-center">
                         <a href="/">
-                            <img src="{{asset('storage/images/logo.png')}}" alt="" height="100" class="mx-auto">
+                          <img src="{{asset('logo.jpeg')}}" alt="" height="100" class="mx-auto">
                         </a>
                         {{--  <p class="text-muted mt-2 mb-4">{{env('APP_NAME')}}</p>--}}
 
@@ -87,7 +87,7 @@
                     <!-- end row -->
                 </div>
                 <div class="col-md-4 my-5 pt-lg-5">
-                    <img src="{{asset('storage/images/p58766.jpg')}}" alt="image" height="300" class="mx-auto">
+                    <img src="{{asset('multi/img/p58766.jpg')}}" alt="image" height="300" class="mx-auto">
                 </div>
             </div>
     </div>

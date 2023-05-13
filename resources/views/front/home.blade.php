@@ -16,7 +16,7 @@
                         <div class="carousel-inner">
                             @if($soins[0])
                                 <div class="carousel-item position-relative active" style="height: 430px;">
-                                    <img class="position-absolute w-100 h-100" src="{{ asset('storage/images/p738348.jpg') }}" style="object-fit: cover;">
+                                    <img class="position-absolute w-100 h-100" src="{{ asset('multi/img/p738348.jpg') }}" style="object-fit: cover;">
                                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                         <div class="p-3" style="max-width: 700px;">
                                             <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{$soins[0]->type->libelle}}</h1>
@@ -28,7 +28,7 @@
                             @endif
                             @if(sizeof($soins)>1)
                             <div class="carousel-item position-relative" style="height: 430px;">
-                                <img class="position-absolute w-100 h-100" src="{{ asset('storage/images/p58766.jpg') }}" style="object-fit: cover;">
+                                <img class="position-absolute w-100 h-100" src="{{ asset('multi/img/p58766.jpg') }}" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
                                         <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{$soins[1]->type->libelle}}</h1>
@@ -40,7 +40,7 @@
                             @endif
                             @if(sizeof($soins)>2)
                             <div class="carousel-item position-relative" style="height: 430px;">
-                                <img class="position-absolute w-100 h-100" src="{{ asset('storage/images/p738348.jpg') }}" style="object-fit: cover;">
+                                <img class="position-absolute w-100 h-100" src="{{ asset('multi/img/p738348.jpg') }}" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
                                         <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{$soins[2]->type->libelle}}</h1>
